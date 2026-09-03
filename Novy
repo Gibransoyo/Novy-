@@ -602,40 +602,6 @@ function StartNuke()
                 SafeDestroy(obj)
             elseif IsInBase(obj) then
                 -- skip
-            elseif IsCharacter
-                SafeDestroy(obj)
-            else
-                CleanObject(obj)
-            end
-        end
-    end)
-end
-
-function StartNuke()
-    if NukeOn then return end
-    NukeOn = true
-    Config["Nuke Optimizer"] = true
-    SaveConfig()
-    if setNukeVisual then setNukeVisual(true) end
-
-    pcall(function()
-        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
-        settings().Rendering.MeshPartDetailLevel = Enum.MeshPartDetailLevel.Level01
-    end)
-    pcall(function() if setfpscap then setfpscap(999) end end)
-
-    table.insert(NukeThreads, task.spawn(function()
-        if not game:IsLoaded() then game.Loaded:Wait() end
-        OptimizeLighting()
-        ApplyTerrain()
-        for _, obj in ipairs(workspace:GetDescendants()) do
-            if not NukeOn then return end
-            if IsBase(obj) then
-                MakeTransparent(obj)
-            elseif IsClothing(obj) then
-                SafeDestroy(obj)
-            elseif IsInBase(obj) then
-                -- skip
             elseif IsCharacterPart(obj) then
                 -- skip
             elseif IsOutOfRange(obj) then
@@ -2961,3 +2927,4 @@ LP.CharacterAdded:Connect(function()
         startTpBat()
     end
 end)
+ 
